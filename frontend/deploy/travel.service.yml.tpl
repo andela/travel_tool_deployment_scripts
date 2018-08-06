@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: travel
-  namespace: staging
+  name: {{ PROJECT_NAME }}
+  namespace: {{ NAMESPACE }}
   labels:
-    app: travel
+    app: {{ PROJECT_NAME }}
 spec:
   type: NodePort
   ports:
@@ -14,4 +14,4 @@ spec:
       port: 80
       targetPort: http
   selector:
-    app: travel
+    app: {{ PROJECT_NAME }}

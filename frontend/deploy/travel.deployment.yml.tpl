@@ -1,25 +1,25 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: travel
-  namespace: staging
+  name: {{ PROJECT_NAME }}
+  namespace: {{ NAMESPACE }}
 spec:
   minReadySeconds: 15
   revisionHistoryLimit: 3
   template:
     metadata:
       labels:
-        app: travel
+        app: {{ PROJECT_NAME }}
     spec:
       containers:
-        - name: travel
-          image: gcr.io/travel-tool/frontend:latest
+        - name: {{ PROJECT_NAME }}
+          image: {{ DOCKER_REGISTRY }}/{{ PROJECT_ID }}/{{ PROJECT_NAME }}:latest
           command:
             - serve
             - -s
-            - -p 5000
+            - -p {{ PORT }}
           ports:
-          - containerPort: 5000
+          - containerPort: {{ PORT }}
             name: http
           resources:
             requests:

@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: travel
-  namespace: staging
+  name: {{ PROJECT_NAME }}
+  namespace: {{ NAMESPACE }}
   labels:
-    app: travel
+    app: {{ PROJECT_NAME }}
 spec:
   tls: []
   rules:
@@ -12,5 +12,5 @@ spec:
       paths:
         - path: /*
           backend:
-            serviceName: travel
+            serviceName: {{ PROJECT_NAME }}
             servicePort: http

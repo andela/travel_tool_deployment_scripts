@@ -4,10 +4,10 @@
 DOCKERFILE='Dockerfile'
 
 # External registry domain
-EXTERNAL_REGISTRY_BASE_DOMAIN=gcr.io/travel-tool
+EXTERNAL_REGISTRY_BASE_DOMAIN={{ DOCKER_REGISTRY }}/{{ PROJECT_ID }}
 
 # Name of repository/project
-REPOSITORY_NAME='travel-tool'
+REPOSITORY_NAME={{ PROJECT_NAME }}
 
 # Docker tag that will be created
 # Defaults to concatenation of your external registry + repository name, i.e.:
@@ -15,7 +15,7 @@ REPOSITORY_NAME='travel-tool'
 DOCKERTAG="${EXTERNAL_REGISTRY_BASE_DOMAIN}/${REPOSITORY_NAME}"
 
 # Namespace to work in
-NAMESPACE='staging'
+NAMESPACE={{ NAMESPACE }}
 
 # List of files ending in '.configmap.yml' in the kube directory
 CONFIGMAPS=()
