@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: travel
+  namespace: staging
+  labels:
+    app: travel
+spec:
+  tls: []
+  rules:
+    - http:
+      paths:
+        - path: /*
+          backend:
+            serviceName: travel
+            servicePort: http
