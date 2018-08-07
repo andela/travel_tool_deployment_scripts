@@ -13,11 +13,11 @@ spec:
     spec:
       containers:
         - name: {{ PROJECT_NAME }}
-          image: {{ DOCKER_REGISTRY }}/{{ PROJECT_ID }}/{{ PROJECT_NAME }}:latest
+          image: {{ DOCKER_REGISTRY }}/{{ PROJECT_ID }}/{{ PROJECT_NAME }}:{{ IMAGE_TAG }}
           command:
             - serve
             - -s
-            - -p {{ PORT }}
+            #- -p {{ PORT }}
           ports:
           - containerPort: {{ PORT }}
             name: http

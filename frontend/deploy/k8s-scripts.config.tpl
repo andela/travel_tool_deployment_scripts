@@ -24,13 +24,13 @@ CONFIGMAPS=()
 SERVICE_ACCOUNTS=()
 
 # List of files ending in '.service.yml' in the kube directory
-SERVICES=('travel')
+SERVICES=('travella-frontend')
 # List of ingress resource files ending in '.ingress.yml' in the kube directory
-INGRESSES=('travel')
+INGRESSES=('travella-frontend')
 
 # List of files ending in '.deployment.yml' in the kube directory
-DEPLOYMENTS=('travel')
+DEPLOYMENTS=('travella-frontend')
 
 # List of files ending in '.horizontal_pod_autoscaler.yml' in the kube directory
-HORIZONTAL_POD_AUTOSCALERS=('travel')
+HORIZONTAL_POD_AUTOSCALERS=('travella-frontend')
 
