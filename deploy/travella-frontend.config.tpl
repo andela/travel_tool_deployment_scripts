@@ -1,8 +1,5 @@
 # Configuration for https://github.com/reactiveops/rok8s-scripts
 
-# Dockerfile to build
-DOCKERFILE='Dockerfile'
-
 # External registry domain
 EXTERNAL_REGISTRY_BASE_DOMAIN={{ DOCKER_REGISTRY }}/{{ PROJECT_ID }}
 
@@ -26,7 +23,7 @@ SERVICE_ACCOUNTS=()
 # List of files ending in '.service.yml' in the kube directory
 SERVICES=('travella-frontend')
 # List of ingress resource files ending in '.ingress.yml' in the kube directory
-INGRESSES=('travella-frontend')
+INGRESSES=("travella-${NAMESPACE}")
 
 # List of files ending in '.deployment.yml' in the kube directory
 DEPLOYMENTS=('travella-frontend')

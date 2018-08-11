@@ -17,7 +17,8 @@ spec:
           command:
             - serve
             - -s
-            #- -p {{ PORT }}
+            - -l
+            - '{{ PORT }}'
           ports:
           - containerPort: {{ PORT }}
             name: http
