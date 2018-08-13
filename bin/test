@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-NAMESPACE=staging
+NAMESPACE=production
 IMAGE_TAG=$(git rev-parse --short HEAD)
 INGRESS_STATIC_IP_NAME=travella-staging
 PROJECT_NAME=travella-frontend
