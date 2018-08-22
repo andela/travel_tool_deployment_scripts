@@ -48,13 +48,6 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: JWT_PUBLIC_KEY_TEST
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "100m"
-            limits:
-              memory: "64Mi"
-              cpu: "100m"
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz

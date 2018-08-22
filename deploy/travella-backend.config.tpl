@@ -21,7 +21,7 @@ CONFIGMAPS=()
 SERVICE_ACCOUNTS=()
 
 # List of files ending in '.secret.yml' in the kube directory
-SECRETS=('travella-backend')
+SECRETS=('travella-backend' 'travella-tls')
 
 # List of files ending in '.service.yml' in the kube directory
 SERVICES=('travella-backend')
