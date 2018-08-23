@@ -69,22 +69,32 @@ findTempateFiles() {
 }
 
 findAndReplaceVariables() {
+  projectNameRegex="${PROJECT_NAME}.+"
+  namespaceRegex="travella-${NAMESPACE}.+"
+  generalRegex="travella\..+"
   for file in ${TEMPLATES[@]}; do
-    local output=${file%.tpl}
-    cp $file $output
-    info "Building $(basename $file) template to $(basename $output)"
-    for variable in ${VARIABLES[@]}; do
-      local value=${!variable}
-      sed -i -e "s/{{ $variable }}/$value/g" $output;
-      sed -i -e "s/{{$variable}}/$value/g" $output;
-    done
+    if [[ $file =~ $projectNameRegex ]] \
+    || [[ $file =~ $namespaceRegex ]] \
+    || [[ $file =~ $generalRegex ]]
+    then
+      local output=${file%.tpl}
+      cp $file $output
+      info "Building $(basename $file) template to $(basename $output)"
+      for variable in ${VARIABLES[@]}; do
+        local value=${!variable}
+        sed -i -e "s/{{ $variable }}/$value/g" $output;
+        sed -i -e "s/{{$variable}}/$value/g" $output;
+      done
 
-    if [[ $? == 0 ]]; then
-        success "Template file $(basename $file) has been successfuly built to $(basename $output)"
-      else
-        error "Failed to build template $(basename $file)"
+      if [[ $? == 0 ]]; then
+          success "Template file $(basename $file) has been successfuly built to $(basename $output)"
+        else
+          error "Failed to build template $(basename $file)"
+      fi
     fi
   done
+
+  gsutil cat gs://travela/.secrets/${PROJECT_NAME}/.env.${NAMESPACE} >> deploy/${PROJECT_NAME}.secret.yml
 
   info "Cleaning backup files after substitution"
   rm -rf deploy/*-e
