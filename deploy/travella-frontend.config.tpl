@@ -30,4 +30,3 @@ DEPLOYMENTS=('travella-frontend')
 
 # List of files ending in '.horizontal_pod_autoscaler.yml' in the kube directory
 HORIZONTAL_POD_AUTOSCALERS=('travella')
-
