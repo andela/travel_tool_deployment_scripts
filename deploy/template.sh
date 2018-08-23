@@ -35,7 +35,8 @@ require () {
 # specify required variables
 VARIABLES=(
   'NAMESPACE' 'PROJECT_NAME' 'DOCKER_REGISTRY'
-  'PROJECT_ID' 'TARGET_CPU_UTILIZATION' 'MAXIMUM_REPLICAS' 'MINIMUM_REPLICAS' 'PORT'
+  'PROJECT_ID' 'TARGET_CPU_UTILIZATION' 'MAXIMUM_REPLICAS'
+  'MINIMUM_REPLICAS' 'PORT' 'IMAGE_TAG' 'INGRESS_STATIC_IP_NAME'
   )
 
 # Set default values
@@ -48,6 +49,8 @@ PORT=${PORT:-5000}
 require VARIABLES $VARIABLES
 require NAMESPACE $NAMESPACE
 require PORT $PORT
+require IMAGE_TAG $IMAGE_TAG
+require INGRESS_STATIC_IP_NAME $INGRESS_STATIC_IP_NAME
 require DOCKER_REGISTRY $DOCKER_REGISTRY
 require PROJECT_NAME $PROJECT_NAME
 require PROJECT_ID $PROJECT_ID
@@ -66,22 +69,32 @@ findTempateFiles() {
 }
 
 findAndReplaceVariables() {
+  projectNameRegex="${PROJECT_NAME}.+"
+  namespaceRegex="travella-${NAMESPACE}.+"
+  generalRegex="travella\..+"
   for file in ${TEMPLATES[@]}; do
-    local output=${file%.tpl}
-    cp $file $output
-    info "Building $(basename $file) template to $(basename $output)"
-    for variable in ${VARIABLES[@]}; do
-      local value=${!variable}
-      sed -i -e "s/{{ $variable }}/$value/g" $output;
-      sed -i -e "s/{{$variable}}/$value/g" $output;
-    done
+    if [[ $file =~ $projectNameRegex ]] \
+    || [[ $file =~ $namespaceRegex ]] \
+    || [[ $file =~ $generalRegex ]]
+    then
+      local output=${file%.tpl}
+      cp $file $output
+      info "Building $(basename $file) template to $(basename $output)"
+      for variable in ${VARIABLES[@]}; do
+        local value=${!variable}
+        sed -i -e "s/{{ $variable }}/$value/g" $output;
+        sed -i -e "s/{{$variable}}/$value/g" $output;
+      done
 
-    if [[ $? == 0 ]]; then
-        success "Template file $(basename $file) has been successfuly built to $(basename $output)"
-      else
-        error "Failed to build template $(basename $file)"
+      if [[ $? == 0 ]]; then
+          success "Template file $(basename $file) has been successfuly built to $(basename $output)"
+        else
+          error "Failed to build template $(basename $file)"
+      fi
     fi
   done
+
+  gsutil cat gs://travela/.secrets/${PROJECT_NAME}/.env.${NAMESPACE} >> deploy/${PROJECT_NAME}.secret.yml
 
   info "Cleaning backup files after substitution"
   rm -rf deploy/*-e

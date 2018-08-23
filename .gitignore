@@ -1,0 +1,4 @@
+deploy.sh
+*.yml
+*.config
+.secrets

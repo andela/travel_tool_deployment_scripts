@@ -1,8 +1,5 @@
 # Configuration for https://github.com/reactiveops/rok8s-scripts
 
-# Dockerfile to build
-DOCKERFILE='Dockerfile'
-
 # External registry domain
 EXTERNAL_REGISTRY_BASE_DOMAIN={{ DOCKER_REGISTRY }}/{{ PROJECT_ID }}
 
@@ -23,14 +20,19 @@ CONFIGMAPS=()
 # List of files ending in '.service_account.yml' in the kube directory
 SERVICE_ACCOUNTS=()
 
+# List of files ending in '.secret.yml' in the kube directory
+SECRETS=('travella-backend')
+
 # List of files ending in '.service.yml' in the kube directory
-SERVICES=('travel')
+SERVICES=('travella-backend')
 # List of ingress resource files ending in '.ingress.yml' in the kube directory
-INGRESSES=('travel')
+INGRESSES=("travella-{{ NAMESPACE }}")
 
 # List of files ending in '.deployment.yml' in the kube directory
-DEPLOYMENTS=('travel')
+DEPLOYMENTS=('travella-backend')
 
 # List of files ending in '.horizontal_pod_autoscaler.yml' in the kube directory
-HORIZONTAL_POD_AUTOSCALERS=('travel')
+HORIZONTAL_POD_AUTOSCALERS=('travella')
 
+# List of files ending in '.blockingjob.yml' in the kube directory
+BLOCKING_JOBS=('travella-backend')
