@@ -1,0 +1,3 @@
+deploy.sh
+deploy/*.yml
+deploy/*.config

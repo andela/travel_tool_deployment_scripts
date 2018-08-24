@@ -37,6 +37,7 @@ VARIABLES=(
   'NAMESPACE' 'PROJECT_NAME' 'DOCKER_REGISTRY'
   'PROJECT_ID' 'TARGET_CPU_UTILIZATION' 'MAXIMUM_REPLICAS'
   'MINIMUM_REPLICAS' 'PORT' 'IMAGE_TAG' 'INGRESS_STATIC_IP_NAME'
+  'SSL_CERTIFICATE' 'SSL_PRIVATE_KEY'
   )
 
 # Set default values
@@ -57,6 +58,14 @@ require PROJECT_ID $PROJECT_ID
 require TARGET_CPU_UTILIZATION $TARGET_CPU_UTILIZATION
 require MAXIMUM_REPLICAS $MAXIMUM_REPLICAS
 require MINIMUM_REPLICAS $MINIMUM_REPLICAS
+require SSL_BUCKET_NAME $SSL_BUCKET_NAME
+
+if [ `uname` == 'Linux' ]; then
+    export BASE_64_ARGS='-w 0'
+fi
+
+export SSL_PRIVATE_KEY=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_key.key | base64 $BASE_64_ARGS)
+export SSL_CERTIFICATE=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_certificate.crt | base64 $BASE_64_ARGS)
 
 findTempateFiles() {
   local _yamlFilesVariable=$1
@@ -69,22 +78,35 @@ findTempateFiles() {
 }
 
 findAndReplaceVariables() {
-  for file in ${TEMPLATES[@]}; do
-    local output=${file%.tpl}
-    cp $file $output
-    info "Building $(basename $file) template to $(basename $output)"
-    for variable in ${VARIABLES[@]}; do
-      local value=${!variable}
-      sed -i -e "s/{{ $variable }}/$value/g" $output;
-      sed -i -e "s/{{$variable}}/$value/g" $output;
-    done
+  projectNameRegex="${PROJECT_NAME}.+"
+  namespaceRegex="travella-${NAMESPACE}.+"
+  tlsSecretRegex="travella-tls.+"
+  generalRegex="travella\..+"
 
-    if [[ $? == 0 ]]; then
-        success "Template file $(basename $file) has been successfuly built to $(basename $output)"
-      else
-        error "Failed to build template $(basename $file)"
+  for file in ${TEMPLATES[@]}; do
+    if [[ $file =~ $projectNameRegex ]] \
+    || [[ $file =~ $namespaceRegex ]] \
+    || [[ $file =~ $generalRegex ]] \
+    || [[ $file =~ $tlsSecretRegex ]]
+    then
+      local output=${file%.tpl}
+      cp $file $output
+      info "Building $(basename $file) template to $(basename $output)"
+      for variable in ${VARIABLES[@]}; do
+        local value=${!variable}
+        sed -i -e "s/{{ $variable }}/$value/g" $output;
+        sed -i -e "s/{{$variable}}/$value/g" $output;
+      done
+
+      if [[ $? == 0 ]]; then
+          success "Template file $(basename $file) has been successfuly built to $(basename $output)"
+        else
+          error "Failed to build template $(basename $file)"
+      fi
     fi
   done
+
+  gsutil cat gs://travela/.secrets/travella-backend/.env.${NAMESPACE} >> deploy/travella-backend.secret.yml
 
   info "Cleaning backup files after substitution"
   rm -rf deploy/*-e
