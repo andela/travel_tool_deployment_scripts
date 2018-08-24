@@ -17,6 +17,12 @@ persist_to_workspace: &persist_to_workspace
     root: .
     paths: .
 
+install_gcloud_config: &install_gcloud_config
+  run:
+    name: Setup Gcloud authorization
+    command: |
+      chmod +x bin/setup-gcloud.sh
+      bin/setup-gcloud.sh main
 jobs:
   checkout:
     <<: *defaults
@@ -24,37 +30,70 @@ jobs:
       - checkout
       - *persist_to_workspace
 
-  build:
+  build_frontend:
     <<: *defaults
     steps:
       - *attach_workspace
+      - *install_gcloud_config
       - run:
-          name: Build Configuration files
+          name: Build Frontend K8s configuration files
           command: |
-            chmod +x bin/test
-            bin/test build
+            chmod +x bin/test-frontend.sh
+            bin/test-frontend.sh build
       - *persist_to_workspace
-  test:
+  build_backend:
     <<: *defaults
     steps:
       - *attach_workspace
+      - *install_gcloud_config
+      - run:
+          name: Build Backend configuration files
+          command: |
+            chmod +x bin/test-backend.sh
+            bin/test-backend.sh build
+      - *persist_to_workspace
+  test_frontend:
+    <<: *defaults
+    steps:
+      - *attach_workspace
+      - *install_gcloud_config
       - run:
           name: Install K8s deploy scripts
           command: sudo npm install -g rok8s-scripts
       - run:
           name: Run deploy scripts test
           command: |
-            chmod +x bin/test
-            bin/test lint
+            chmod +x bin/test-frontend.sh
+            bin/test-frontend.sh lint
+  test_backend:
+    <<: *defaults
+    steps:
+      - *attach_workspace
+      - *install_gcloud_config
+      - run:
+          name: Install K8s deploy scripts
+          command: sudo npm install -g rok8s-scripts
+      - run:
+          name: Run deploy scripts test
+          command: |
+            chmod +x bin/test-backend.sh
+            bin/test-backend.sh lint
 workflows:
   version: 2
   build-and-test:
     jobs:
       - checkout
-      - build:
+      - build_frontend:
           requires:
             - checkout
-      - test:
+      - build_backend:
           requires:
             - checkout
-            - build
+      - test_frontend:
+          requires:
+            - checkout
+            - build_frontend
+      - test_backend:
+          requires:
+            - checkout
+            - build_backend

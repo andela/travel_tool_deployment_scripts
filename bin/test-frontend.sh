@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-NAMESPACE=staging
-IMAGE_TAG=$(git rev-parse --short HEAD)
-INGRESS_STATIC_IP_NAME=travella-staging-frontend
-PROJECT_NAME=travella-frontend
-PROJECT_ID=andela-learning
 
+PROJECT_NAME=travella-frontend
+
+source bin/utils.sh
 source deploy/template.sh
 
 build(){

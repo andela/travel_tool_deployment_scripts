@@ -8,6 +8,8 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: {{ INGRESS_STATIC_IP_NAME }}
 spec:
+  tls:
+    - secretName: {{ PROJECT_NAME }}-tls-secrets
   rules:
   - host: travela-staging.andela.com
     http:

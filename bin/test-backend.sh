@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-NAMESPACE=staging
-IMAGE_TAG=healthcheck2
-INGRESS_STATIC_IP_NAME=travella-staging-frontend
-PROJECT_NAME=travella-backend
-PROJECT_ID=andela-learning
 
+PROJECT_NAME=travella-backend
+
+source bin/utils.sh
 source deploy/template.sh
 
 build(){
