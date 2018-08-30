@@ -33,21 +33,16 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: DatabaseUrl
-            - name: DATABASE_URL_TEST
+            - name: JWT_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
-                  key: DatabaseUrl
-            - name: JWT_SECRET_KEY_TEST
+                  key: JWT_PUBLIC_KEY
+            - name: DEFAULT_ADMIN
               valueFrom:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
-                  key: JWT_SECRET_KEY_TEST
-            - name: JWT_PUBLIC_KEY_TEST
-              valueFrom:
-                secretKeyRef:
-                  name: {{ PROJECT_NAME }}-secrets
-                  key: JWT_PUBLIC_KEY_TEST
+                  key: DEFAULT_ADMIN
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
