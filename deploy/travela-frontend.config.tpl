@@ -21,18 +21,15 @@ CONFIGMAPS=()
 SERVICE_ACCOUNTS=()
 
 # List of files ending in '.secret.yml' in the kube directory
-SECRETS=('travella-backend' 'travella-tls')
+SECRETS=('travela-tls')
 
 # List of files ending in '.service.yml' in the kube directory
-SERVICES=('travella-backend')
+SERVICES=('travela-frontend')
 # List of ingress resource files ending in '.ingress.yml' in the kube directory
-INGRESSES=("travella-{{ NAMESPACE }}")
+INGRESSES=("travela-{{ NAMESPACE }}")
 
 # List of files ending in '.deployment.yml' in the kube directory
-DEPLOYMENTS=('travella-backend')
+DEPLOYMENTS=('travela-frontend')
 
 # List of files ending in '.horizontal_pod_autoscaler.yml' in the kube directory
-HORIZONTAL_POD_AUTOSCALERS=('travella')
-
-# List of files ending in '.blockingjob.yml' in the kube directory
-BLOCKING_JOBS=('travella-backend')
+HORIZONTAL_POD_AUTOSCALERS=('travela')
