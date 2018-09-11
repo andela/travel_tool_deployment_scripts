@@ -6,3 +6,7 @@ metadata:
   labels:
     app: {{ PROJECT_NAME }}
 type: Opaque
+data:
+  JwtPublicKey: {{ JWT_PUBLIC_KEY }}
+  DatabaseUrl: {{ DATABASE_URL }}
+  DefaultAdmin: {{ DEFAULT_ADMIN }}

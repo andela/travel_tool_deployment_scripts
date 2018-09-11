@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: travella-staging
+  name: travela-staging
   namespace: staging
   labels:
-    app: travella-staging
+    app: travela-staging
   annotations:
     kubernetes.io/ingress.global-static-ip-name: {{ INGRESS_STATIC_IP_NAME }}
 spec:
@@ -16,12 +16,12 @@ spec:
       paths:
       - path: /*
         backend:
-          serviceName: travella-frontend
+          serviceName: travela-frontend
           servicePort: http
   - host: travela-staging-api.andela.com
     http:
       paths:
       - path: /*
         backend:
-          serviceName: travella-backend
+          serviceName: travela-backend
           servicePort: http

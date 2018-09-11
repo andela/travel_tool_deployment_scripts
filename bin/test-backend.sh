@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PROJECT_NAME=travella-backend
+PROJECT_NAME=travela-backend
 
 source bin/utils.sh
 source deploy/template.sh
