@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+
 DIRECTORY="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 ROOT_DIRECTORY=$(dirname $DIRECTORY)
 
@@ -32,12 +32,18 @@ require () {
     if [ -z ${2+x} ]; then error "Required variable ${1} has not been set"; fi
 }
 
+base64Encode () {
+    if [ -z ${1+x} ]; then error "The value supplied is empy"; fi
+    echo $1 | base64 $2 $3
+}
+
 # specify required variables
 VARIABLES=(
   'NAMESPACE' 'PROJECT_NAME' 'DOCKER_REGISTRY'
   'PROJECT_ID' 'TARGET_CPU_UTILIZATION' 'MAXIMUM_REPLICAS'
   'MINIMUM_REPLICAS' 'PORT' 'IMAGE_TAG' 'INGRESS_STATIC_IP_NAME'
-  'SSL_CERTIFICATE' 'SSL_PRIVATE_KEY'
+  'SSL_CERTIFICATE' 'SSL_PRIVATE_KEY' 'JWT_PUBLIC_KEY' 'DATABASE_URL'
+  'DEFAULT_ADMIN'
   )
 
 # Set default values
@@ -59,13 +65,20 @@ require TARGET_CPU_UTILIZATION $TARGET_CPU_UTILIZATION
 require MAXIMUM_REPLICAS $MAXIMUM_REPLICAS
 require MINIMUM_REPLICAS $MINIMUM_REPLICAS
 require SSL_BUCKET_NAME $SSL_BUCKET_NAME
+require JWT_PUBLIC_KEY $JWT_PUBLIC_KEY
+require DATABASE_URL $DATABASE_URL
+require DEFAULT_ADMIN $DEFAULT_ADMIN
 
 if [ `uname` == 'Linux' ]; then
-    export BASE_64_ARGS='-w 0'
+    BASE_64_ARGS='-w 0'
 fi
 
-export SSL_PRIVATE_KEY=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_key.key | base64 $BASE_64_ARGS)
-export SSL_CERTIFICATE=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_certificate.crt | base64 $BASE_64_ARGS)
+# base64 environment variables
+SSL_PRIVATE_KEY=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_key.key | base64 $BASE_64_ARGS)
+SSL_CERTIFICATE=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_certificate.crt | base64 $BASE_64_ARGS)
+JWT_PUBLIC_KEY=$(base64Encode $JWT_PUBLIC_KEY $BASE_64_ARGS)
+DATABASE_URL=$(base64Encode $DATABASE_URL $BASE_64_ARGS)
+DEFAULT_ADMIN=$(base64Encode $DEFAULT_ADMIN $BASE_64_ARGS)
 
 findTempateFiles() {
   local _yamlFilesVariable=$1
@@ -79,9 +92,9 @@ findTempateFiles() {
 
 findAndReplaceVariables() {
   projectNameRegex="${PROJECT_NAME}.+"
-  namespaceRegex="travella-${NAMESPACE}.+"
-  tlsSecretRegex="travella-tls.+"
-  generalRegex="travella\..+"
+  namespaceRegex="travela-${NAMESPACE}.+"
+  tlsSecretRegex="travela-tls.+"
+  generalRegex="travela\..+"
 
   for file in ${TEMPLATES[@]}; do
     if [[ $file =~ $projectNameRegex ]] \
@@ -106,7 +119,7 @@ findAndReplaceVariables() {
     fi
   done
 
-  gsutil cat gs://travela/.secrets/travella-backend/.env.${NAMESPACE} >> deploy/travella-backend.secret.yml
+  # gsutil cat gs://travela/.secrets/travela-backend/.env.${NAMESPACE} >> deploy/travela-backend.secret.yml
 
   info "Cleaning backup files after substitution"
   rm -rf deploy/*-e

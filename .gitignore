@@ -1,3 +1,4 @@
 deploy.sh
 deploy/*.yml
 deploy/*.config
+bin/*.envs

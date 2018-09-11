@@ -15,17 +15,9 @@ spec:
           - yarn
           - db:migrate
         env:
-          - name: NodeEnv
-            valueFrom:
-              secretKeyRef:
-                name: {{ PROJECT_NAME }}-secrets
-                key: NodeEnv
+          - name: NODE_ENV
+            value: {{ NAMESPACE }}
           - name: DATABASE_URL
-            valueFrom:
-              secretKeyRef:
-                name: {{ PROJECT_NAME }}-secrets
-                key: DatabaseUrl
-          - name: DATABASE_URL_TEST
             valueFrom:
               secretKeyRef:
                 name: {{ PROJECT_NAME }}-secrets

@@ -23,11 +23,8 @@ spec:
           env:
             - name: PORT
               value: "{{ PORT }}"
-            - name: NodeEnv
-              valueFrom:
-                secretKeyRef:
-                  name: {{ PROJECT_NAME }}-secrets
-                  key: NodeEnv
+            - name: NODE_ENV
+              value: {{ NAMESPACE }}
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
@@ -37,12 +34,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
-                  key: JWT_PUBLIC_KEY
+                  key: JwtPublicKey
             - name: DEFAULT_ADMIN
               valueFrom:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
-                  key: DEFAULT_ADMIN
+                  key: DefaultAdmin
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
