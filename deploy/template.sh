@@ -41,7 +41,7 @@ base64Encode () {
 VARIABLES=(
   'NAMESPACE' 'PROJECT_NAME' 'DOCKER_REGISTRY'
   'PROJECT_ID' 'TARGET_CPU_UTILIZATION' 'MAXIMUM_REPLICAS'
-  'MINIMUM_REPLICAS' 'PORT' 'IMAGE_TAG' 'INGRESS_STATIC_IP_NAME'
+  'MINIMUM_REPLICAS' 'PORT' 'IMAGE_TAG' 'STATIC_IP'
   'SSL_CERTIFICATE' 'SSL_PRIVATE_KEY' 'JWT_PUBLIC_KEY' 'DATABASE_URL'
   'DEFAULT_ADMIN'
   )
@@ -57,7 +57,7 @@ require VARIABLES $VARIABLES
 require NAMESPACE $NAMESPACE
 require PORT $PORT
 require IMAGE_TAG $IMAGE_TAG
-require INGRESS_STATIC_IP_NAME $INGRESS_STATIC_IP_NAME
+require STATIC_IP $STATIC_IP
 require DOCKER_REGISTRY $DOCKER_REGISTRY
 require PROJECT_NAME $PROJECT_NAME
 require PROJECT_ID $PROJECT_ID
@@ -92,12 +92,14 @@ findAndReplaceVariables() {
   namespaceRegex="travela-${NAMESPACE}.+"
   tlsSecretRegex="travela-tls.+"
   generalRegex="travela\..+"
+  nginxRegex="nginx+"
 
   for file in ${TEMPLATES[@]}; do
     if [[ $file =~ $projectNameRegex ]] \
     || [[ $file =~ $namespaceRegex ]] \
     || [[ $file =~ $generalRegex ]] \
-    || [[ $file =~ $tlsSecretRegex ]]
+    || [[ $file =~ $tlsSecretRegex ]] \
+    || [[ $file =~ $nginxRegex ]]
     then
       local output=${file%.tpl}
       cp $file $output

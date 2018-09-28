@@ -6,7 +6,10 @@ metadata:
   labels:
     app: travela-staging
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: {{ INGRESS_STATIC_IP_NAME }}
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "route"
+    nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
 spec:
   tls:
     - secretName: {{ PROJECT_NAME }}-tls-secrets
@@ -14,14 +17,14 @@ spec:
   - host: travela-staging.andela.com
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: travela-frontend
           servicePort: http
   - host: travela-staging-api.andela.com
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: travela-backend
           servicePort: http

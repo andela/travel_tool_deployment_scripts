@@ -6,11 +6,11 @@ version: 2
 defaults: &defaults
   docker:
     - image: circleci/node:carbon
-  working_directory: ~/travella-deploy-scripts
+  working_directory: ~/travela-deploy-scripts
 
 attach_workspace: &attach_workspace
   attach_workspace:
-    at: ~/travella-deploy-scripts
+    at: ~/travela-deploy-scripts
 
 persist_to_workspace: &persist_to_workspace
   persist_to_workspace:
