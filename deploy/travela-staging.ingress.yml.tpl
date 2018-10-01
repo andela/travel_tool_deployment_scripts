@@ -12,7 +12,7 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
 spec:
   tls:
-    - secretName: {{ PROJECT_NAME }}-tls-secrets
+    - secretName: travela-tls-secrets
   rules:
   - host: travela-staging.andela.com
     http:

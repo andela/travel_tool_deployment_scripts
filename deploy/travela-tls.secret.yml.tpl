@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ PROJECT_NAME }}-tls-secrets
+  name: travela-tls-secrets
   namespace: {{ NAMESPACE }}
 type: kubernetes.io/tls
 data:
