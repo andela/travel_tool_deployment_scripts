@@ -10,8 +10,8 @@ metadata:
     nginx.ingress.kubernetes.io/affinity: "cookie"
     nginx.ingress.kubernetes.io/session-cookie-name: "route"
     nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: 3600
-    nginx.ingress.kubernetes.io/proxy-send-timeout: 3600
+    nginx.ingress.kubernetes.io/proxy-read-timeout: 86400
+    nginx.ingress.kubernetes.io/proxy-send-timeout: 86400
 spec:
   tls:
     - secretName: travela-tls-secrets
