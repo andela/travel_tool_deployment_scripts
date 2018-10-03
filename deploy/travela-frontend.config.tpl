@@ -24,7 +24,7 @@ SERVICE_ACCOUNTS=()
 SECRETS=('travela-tls')
 
 # List of files ending in '.service.yml' in the kube directory
-SERVICES=('travela-frontend' 'nginx')
+SERVICES=('travela-frontend')
 
 # List of ingress resource files ending in '.ingress.yml' in the kube directory
 INGRESSES=("travela-{{ NAMESPACE }}")
