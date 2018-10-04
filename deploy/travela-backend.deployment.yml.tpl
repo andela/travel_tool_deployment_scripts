@@ -40,6 +40,21 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: DefaultAdmin
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: SendgridApiKey
+            - name: REDIRECT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: RedirectUrl
+            - name: APP_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: AppEmail
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
