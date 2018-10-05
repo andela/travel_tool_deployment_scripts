@@ -33,7 +33,7 @@ require () {
 }
 
 base64Encode () {
-    if [ -z ${1+x} ]; then error "The value supplied is empy"; fi
+    if [ -z ${1+x} ]; then error "The value supplied is empty"; fi
     echo -n $1 | base64 $2 $3
 }
 
