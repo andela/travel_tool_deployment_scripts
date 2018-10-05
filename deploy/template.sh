@@ -34,7 +34,7 @@ require () {
 
 base64Encode () {
     if [ -z ${1+x} ]; then error "The value supplied is empy"; fi
-    echo $1 | base64 $2 $3
+    echo -n $1 | base64 $2 $3
 }
 
 # specify required variables
@@ -44,6 +44,7 @@ VARIABLES=(
   'MINIMUM_REPLICAS' 'PORT' 'IMAGE_TAG' 'STATIC_IP'
   'SSL_CERTIFICATE' 'SSL_PRIVATE_KEY' 'JWT_PUBLIC_KEY' 'DATABASE_URL'
   'DEFAULT_ADMIN' 'SENDGRID_API_KEY' 'REDIRECT_URL' 'APP_EMAIL'
+  'BUGSNAG_API_KEY'
   )
 
 # Set default values
@@ -79,6 +80,7 @@ DEFAULT_ADMIN=$(base64Encode $DEFAULT_ADMIN $BASE_64_ARGS)
 SENDGRID_API_KEY=$(base64Encode $SENDGRID_API_KEY $BASE_64_ARGS)
 REDIRECT_URL=$(base64Encode $REDIRECT_URL $BASE_64_ARGS)
 APP_EMAIL=$(base64Encode $APP_EMAIL $BASE_64_ARGS)
+BUGSNAG_API_KEY=$(base64Encode $BUGSNAG_API_KEY $BASE_64_ARGS)
 
 findTempateFiles() {
   local _yamlFilesVariable=$1

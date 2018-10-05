@@ -55,6 +55,11 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: AppEmail
+            - name: BUGSNAG_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: BugsnagApiKey
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz

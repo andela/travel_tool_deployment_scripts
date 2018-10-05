@@ -13,3 +13,4 @@ data:
   SendgridApiKey: {{ SENDGRID_API_KEY }}
   RedirectUrl: {{ REDIRECT_URL }}
   AppEmail: {{ APP_EMAIL }}
+  BugsnagApiKey: {{ BUGSNAG_API_KEY }}

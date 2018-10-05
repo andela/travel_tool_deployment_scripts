@@ -22,4 +22,9 @@ spec:
               secretKeyRef:
                 name: {{ PROJECT_NAME }}-secrets
                 key: DatabaseUrl
+          - name: BUGSNAG_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ PROJECT_NAME }}-secrets
+                key: BugsnagApiKey
       restartPolicy: Never
