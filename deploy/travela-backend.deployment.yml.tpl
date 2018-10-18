@@ -40,26 +40,31 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: DefaultAdmin
-            - name: SENDGRID_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ PROJECT_NAME }}-secrets
-                  key: SendgridApiKey
             - name: REDIRECT_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: RedirectUrl
-            - name: APP_EMAIL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ PROJECT_NAME }}-secrets
-                  key: AppEmail
             - name: BUGSNAG_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: BugsnagApiKey
+            - name: MAILGUN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: MailgunApiKey
+            - name: MAILGUN_DOMAIN_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: MailgunDomainName
+            - name: MAIL_SENDER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: MailSender
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz

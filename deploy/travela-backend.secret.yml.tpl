@@ -10,7 +10,8 @@ data:
   JwtPublicKey: {{ JWT_PUBLIC_KEY }}
   DatabaseUrl: {{ DATABASE_URL }}
   DefaultAdmin: {{ DEFAULT_ADMIN }}
-  SendgridApiKey: {{ SENDGRID_API_KEY }}
   RedirectUrl: {{ REDIRECT_URL }}
-  AppEmail: {{ APP_EMAIL }}
   BugsnagApiKey: {{ BUGSNAG_API_KEY }}
+  MailgunApiKey: {{ MAILGUN_API_KEY }}
+  MailgunDomainName: {{ MAILGUN_DOMAIN_NAME }}
+  MailSender: {{ MAIL_SENDER }}
