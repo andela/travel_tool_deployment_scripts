@@ -65,6 +65,11 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: MailSender
+            - name: SURVEY_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: SurveyUrl
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz

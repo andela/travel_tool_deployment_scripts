@@ -59,4 +59,9 @@ spec:
               secretKeyRef:
                 name: {{ PROJECT_NAME }}-secrets
                 key: MailSender
+          - name: SURVEY_URL
+            valueFrom:
+              secretKeyRef:
+                name: {{ PROJECT_NAME }}-secrets
+                key: SurveyUrl
       restartPolicy: Never
