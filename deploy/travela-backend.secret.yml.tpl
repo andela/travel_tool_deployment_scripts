@@ -15,3 +15,4 @@ data:
   MailgunApiKey: {{ MAILGUN_API_KEY }}
   MailgunDomainName: {{ MAILGUN_DOMAIN_NAME }}
   MailSender: {{ MAIL_SENDER }}
+  SurveyUrl: {{ SURVEY_URL }}
