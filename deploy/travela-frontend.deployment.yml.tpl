@@ -14,6 +14,7 @@ spec:
       containers:
         - name: {{ PROJECT_NAME }}
           image: {{ DOCKER_REGISTRY }}/{{ PROJECT_ID }}/{{ PROJECT_NAME }}:{{ IMAGE_TAG }}
+          imagePullPolicy: Always
           command:
             - serve
             - -s
