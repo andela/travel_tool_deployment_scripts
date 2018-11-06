@@ -71,6 +71,31 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: SurveyUrl
+            - name: CLOUDINARY_CLOUD_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: CloudinaryCloudName
+            - name: CLOUDINARY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: CloudinaryApikey
+            - name: CLOUDINARY_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: CloudinaryApiSecret
+            - name: CLOUDINARY_ENHANCE_IMAGE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: CloudinaryEnhanceImage
+            - name: CLOUDINARY_STATIC_IMAGE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: CloudinaryStaticImage
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
