@@ -16,3 +16,8 @@ data:
   MailgunDomainName: {{ MAILGUN_DOMAIN_NAME }}
   MailSender: {{ MAIL_SENDER }}
   SurveyUrl: {{ SURVEY_URL }}
+  CloudinaryCloudName: {{ CLOUDINARY_CLOUD_NAME }}
+  CloudinaryApikey: {{ CLOUDINARY_API_KEY }}
+  CloudinaryApiSecret: {{ CLOUDINARY_API_SECRET }}
+  CloudinaryEnhanceImage: {{ CLOUDINARY_ENHANCE_IMAGE }}
+  CloudinaryStaticImage: {{ CLOUDINARY_STATIC_IMAGE }}
