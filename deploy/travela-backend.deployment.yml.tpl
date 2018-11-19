@@ -66,11 +66,6 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: MailSender
-            - name: SURVEY_URL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ PROJECT_NAME }}-secrets
-                  key: SurveyUrl
             - name: CLOUDINARY_CLOUD_NAME
               valueFrom:
                 secretKeyRef:
@@ -110,10 +105,11 @@ spec:
               port: http
             initialDelaySeconds: 10
         - name: cloudsql-proxy
-          image: gcr.io/cloudsql-docker/gce-proxy:1.11
+          image: gcr.io/cloudsql-docker/gce-proxy:1.13
           command: ["/cloud_sql_proxy",
                     "-instances={{ PRODUCTION_DB_INSTANCE_CONNECTION_NAME }}=tcp:5432",
-                    "-credential_file=/secrets/cloudsql/credentials.json"]
+                    "-credential_file=/secrets/cloudsql/credentials.json",
+                    "-log_debug_stdout=true"]
           securityContext:
             runAsUser: 2  # non-root user
             allowPrivilegeEscalation: false
