@@ -77,7 +77,7 @@ fi
 
 # base64 environment variables
 SSL_PRIVATE_KEY=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_key.key | base64 $BASE_64_ARGS)
-SSL_CERTIFICATE=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_certificate.crt | base64 $BASE_64_ARGS)
+SSL_CERTIFICATE=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_certificate.pem | base64 $BASE_64_ARGS)
 JWT_PUBLIC_KEY=$(base64Encode $JWT_PUBLIC_KEY $BASE_64_ARGS)
 DATABASE_URL=$(base64Encode $DATABASE_URL $BASE_64_ARGS)
 DEFAULT_ADMIN=$(base64Encode $DEFAULT_ADMIN $BASE_64_ARGS)
