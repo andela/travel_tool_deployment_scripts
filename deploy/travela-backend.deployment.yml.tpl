@@ -91,6 +91,16 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: CloudinaryStaticImage
+            - name: TRAVEL_READINESS_MAIL_CYCLE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: TravelReadinessMailCycle
+            - name: SURVEY_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: SurveyUrl
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz

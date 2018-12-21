@@ -20,3 +20,5 @@ data:
   CloudinaryApiSecret: {{ CLOUDINARY_API_SECRET }}
   CloudinaryEnhanceImage: {{ CLOUDINARY_ENHANCE_IMAGE }}
   CloudinaryStaticImage: {{ CLOUDINARY_STATIC_IMAGE }}
+  TravelReadinessMailCycle: {{ TRAVEL_READINESS_MAIL_CYCLE }}
+  SurveyUrl: {{ SURVEY_URL }}
