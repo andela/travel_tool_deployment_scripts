@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -x
+
 DIRECTORY="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 ROOT_DIRECTORY=$(dirname $DIRECTORY)
 
