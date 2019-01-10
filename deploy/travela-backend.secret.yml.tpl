@@ -22,3 +22,5 @@ data:
   CloudinaryStaticImage: {{ CLOUDINARY_STATIC_IMAGE }}
   TravelReadinessMailCycle: {{ TRAVEL_READINESS_MAIL_CYCLE }}
   SurveyUrl: {{ SURVEY_URL }}
+  AndelaProdApi: {{ ANDELA_PROD_API }}
+  BamboohrApi: {{ BAMBOOHR_API }}

@@ -101,6 +101,16 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: SurveyUrl
+            - name: ANDELA_PROD_API
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: AndelaProdApi
+            - name: BAMBOOHR_API
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: BamboohrApi
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
