@@ -128,8 +128,8 @@ findAndReplaceVariables() {
       info "Building $(basename $file) template to $(basename $output)"
       for variable in ${VARIABLES[@]}; do
         local value=${!variable}
-        sed -i -e "s/{{ $variable }}/$value/g" $output;
-        sed -i -e "s/{{$variable}}/$value/g" $output;
+        sed -i -e "s#{{ $variable }}#\"$value\"#" $output;
+        sed -i -e "s#{{ $variable }}#\"$value\"#" $output;
       done
 
       if [[ $? == 0 ]]; then
