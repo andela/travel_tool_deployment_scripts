@@ -1,4 +1,6 @@
 deploy.sh
 deploy/*.yml
+ingress/*.yml
 deploy/*.config
 bin/*.envs
+.terraform
