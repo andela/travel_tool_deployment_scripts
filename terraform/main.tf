@@ -1,4 +1,6 @@
 variable "project" {}
+variable "owner" {}
+variable "maintainer" {}
 
 locals {
   region = "${terraform.workspace == "staging" ? "us-central1" : "europe-west1"}"
@@ -18,4 +20,7 @@ module "gke" {
   environment = "${terraform.workspace}"
   region = "${local.region}"
   zone = "${local.zone}"
+  product = "travela"
+  owner = "${var.owner}"
+  maintainer = "${var.maintainer}"
 }
