@@ -34,8 +34,10 @@ require () {
 }
 
 base64Encode () {
-    if [ -n ${3} ]; then
+    if [ -n "${3}" ]; then
       echo -n "$3" | base64 $1 $2
+    elif [ -n "${1}" ]; then
+      echo -n "$1" | base64
     fi
 }
 
