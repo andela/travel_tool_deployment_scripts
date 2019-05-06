@@ -111,6 +111,11 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: BamboohrApi
+            - name: LASTCHANGED_BAMBOO_API
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: LastChangedBambooApi
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
