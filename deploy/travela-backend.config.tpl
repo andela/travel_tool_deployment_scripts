@@ -12,7 +12,7 @@ REPOSITORY_NAME={{ PROJECT_NAME }}
 DOCKERTAG="${EXTERNAL_REGISTRY_BASE_DOMAIN}/${REPOSITORY_NAME}"
 
 # Namespace to work in
-NAMESPACE={{ NAMESPACE }}
+NAMESPACE={{ ENVIRONMENT }}
 
 # List of files ending in '.configmap.yml' in the kube directory
 CONFIGMAPS=()
@@ -27,7 +27,7 @@ SECRETS=('travela-backend' 'travela-tls' 'travela.sql')
 SERVICES=('travela-backend')
 
 # List of ingress resource files ending in '.ingress.yml' in the kube directory
-INGRESSES=("travela-{{ NAMESPACE }}")
+INGRESSES=("travela-{{ ENVIRONMENT }}")
 
 # List of files ending in '.deployment.yml' in the kube directory
 DEPLOYMENTS=('travela-backend')
