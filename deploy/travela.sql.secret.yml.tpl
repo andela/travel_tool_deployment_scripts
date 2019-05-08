@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: cloudsql-instance-credentials
-  namespace: {{ NAMESPACE }}
+  namespace: {{ ENVIRONMENT }}
   labels:
     app: {{ PROJECT_NAME }}
 type: Opaque

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: {{ PROJECT_NAME }}-secrets
-  namespace: {{ NAMESPACE }}
+  namespace: {{ ENVIRONMENT }}
   labels:
     app: {{ PROJECT_NAME }}
 type: Opaque

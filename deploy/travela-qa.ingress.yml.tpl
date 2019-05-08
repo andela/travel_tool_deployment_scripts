@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: travela-production
-  namespace: production
+  name: travela-qa
+  namespace: qa
   labels:
-    app: travela-production
+    app: travela-qa
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/affinity: "cookie"
