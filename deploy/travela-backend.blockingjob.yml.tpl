@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ PROJECT_NAME }}
-  namespace: {{ NAMESPACE }}
+  namespace: {{ ENVIRONMENT }}
 spec:
   template:
     metadata:

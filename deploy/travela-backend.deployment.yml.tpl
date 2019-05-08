@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: {{ PROJECT_NAME }}
-  namespace: {{ NAMESPACE }}
+  namespace: {{ ENVIRONMENT }}
 spec:
   minReadySeconds: 15
   revisionHistoryLimit: 3

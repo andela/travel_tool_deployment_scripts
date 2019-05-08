@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ PROJECT_NAME }}
-  namespace: {{ NAMESPACE }}
+  namespace: {{ ENVIRONMENT }}
   labels:
     app: {{ PROJECT_NAME }}
 spec:

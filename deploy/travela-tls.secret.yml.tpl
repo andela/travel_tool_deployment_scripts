@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: travela-tls-secrets
-  namespace: {{ NAMESPACE }}
+  namespace: {{ ENVIRONMENT }}
 type: kubernetes.io/tls
 data:
   tls.crt: {{ SSL_CERTIFICATE }}
