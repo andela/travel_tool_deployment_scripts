@@ -20,7 +20,7 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              /cloud_sql_proxy -instances={{ PRODUCTION_DB_INSTANCE_CONNECTION_NAME }}=tcp:5432 -credential_file=/secrets/cloudsql/credentials.json -log_debug_stdout=true &
+              /cloud_sql_proxy -instances={{ DB_INSTANCE_CONNECTION_NAME }}=tcp:5432 -credential_file=/secrets/cloudsql/credentials.json -log_debug_stdout=true &
               CHILD_PID=$!
               (while true; do echo "waiting for termination file"; if [[ -f "/tmp/pod/main-terminated" ]]; then kill $CHILD_PID; echo "Killed $CHILD_PID as the main container terminated."; fi; sleep 1; done) &
               wait $CHILD_PID

@@ -132,7 +132,7 @@ spec:
         - name: cloudsql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.13
           command: ["/cloud_sql_proxy",
-                    "-instances={{ PRODUCTION_DB_INSTANCE_CONNECTION_NAME }}=tcp:5432",
+                    "-instances={{ DB_INSTANCE_CONNECTION_NAME }}=tcp:5432",
                     "-credential_file=/secrets/cloudsql/credentials.json",
                     "-log_debug_stdout=true"]
           securityContext:
