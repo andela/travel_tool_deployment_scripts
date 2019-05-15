@@ -4,3 +4,4 @@ ingress/*.yml
 deploy/*.config
 bin/*.envs
 .terraform
+.DS_Store
