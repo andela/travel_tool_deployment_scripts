@@ -41,7 +41,6 @@ spec:
             - |
               trap "touch /tmp/pod/main-terminated" EXIT
               yarn db:migrate
-              yarn db:user:migrate 
           volumeMounts:
             - name: tmp-pod
               mountPath: /tmp/pod
