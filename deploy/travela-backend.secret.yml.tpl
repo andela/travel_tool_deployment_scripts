@@ -25,4 +25,4 @@ data:
   AndelaProdApi: {{ ANDELA_PROD_API }}
   BamboohrApi: {{ BAMBOOHR_API }}
   LastChangedBambooApi: {{ LASTCHANGED_BAMBOO_API }}
-  BamboohridApi: {{BAMBOOHRID_API}}
+  BamboohridApi: {{ BAMBOOHRID_API }}
