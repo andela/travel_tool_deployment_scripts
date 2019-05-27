@@ -116,7 +116,7 @@ findTempateFiles() {
 
 findAndReplaceVariables() {
   projectNameRegex="${PROJECT_NAME}.+"
-  namespaceRegex="travela-${NAMESPACE}.+"
+  namespaceRegex="travela-${ENVIRONMENT}.+"
   tlsSecretRegex="travela-tls.+"
   generalRegex="travela\..+"
   nginxRegex="nginx+"
