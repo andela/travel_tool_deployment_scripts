@@ -1,0 +1,27 @@
+{
+    "lifecycle": {
+        "rule": [
+            {
+                "action": {
+                    "type": "SetStorageClass",
+                    "storageClass": "NEARLINE"
+                },
+                "condition": {
+                    "age": "AGE_MIN",
+                    "matchesStorageClass": ["MULTI_REGIONAL", "STANDARD", "DURABLE_REDUCED_AVAILABILITY"]
+                }
+            },
+            
+            {
+                "action": {
+                    "type": "SetStorageClass",
+                    "storageClass": "COLDLINE"
+                },
+                "condition": {
+                    "age": "AGE_MAX",
+                    "matchesStorageClass": ["NEARLINE"]
+                }
+            }
+        ]
+    }
+}

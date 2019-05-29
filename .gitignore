@@ -5,3 +5,5 @@ deploy/*.config
 bin/*.envs
 .terraform
 .DS_Store
+bucketPolicy/.env
+bucketPolicy/creds/serviceAccount.json
