@@ -144,4 +144,9 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: BamboohridApi
+            - name: OCRSOLUTION
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: OcrSolution
       restartPolicy: Never
