@@ -26,3 +26,4 @@ data:
   BamboohrApi: {{ BAMBOOHR_API }}
   LastChangedBambooApi: {{ LASTCHANGED_BAMBOO_API }}
   BamboohridApi: {{ BAMBOOHRID_API }}
+  OcrSolution: {{ OCRSOLUTION }}

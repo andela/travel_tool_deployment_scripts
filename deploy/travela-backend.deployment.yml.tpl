@@ -121,6 +121,11 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: BamboohridApi
+            - name: OCRSOLUTION
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: OcrSolution
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
