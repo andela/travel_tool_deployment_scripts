@@ -1,0 +1,12 @@
+variable "project" {}
+variable "environment" {}
+variable "product" {}
+variable "owner" {}
+variable "maintainer" {}
+variable "machine_type" {}
+variable "location" {}
+variable "region" {}
+variable "credentials" {}
+variable "db_backup_start_time" {}
+variable "db_instance_tier" {}
+variable "db_user" {}

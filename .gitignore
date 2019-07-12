@@ -7,3 +7,5 @@ bin/*.envs
 .DS_Store
 bucketPolicy/.env
 bucketPolicy/creds/serviceAccount.json
+*.tfvars
+terraformV2/gke/creds/serviceAccount.json
