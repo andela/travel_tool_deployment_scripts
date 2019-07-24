@@ -12,6 +12,9 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
     nginx.ingress.kubernetes.io/proxy-read-timeout: 86400
     nginx.ingress.kubernetes.io/proxy-send-timeout: 86400
+    nginx.ingress.kubernetes.io/limit-connections: 6
+    nginx.ingress.kubernetes.io/limit-rps: 6
+    nginx.ingress.kubernetes.io/limit-rate: 6
 spec:
   tls:
     - secretName: travela-tls-secrets
