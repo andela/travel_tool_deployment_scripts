@@ -28,4 +28,3 @@ data:
   BamboohridApi: {{ BAMBOOHRID_API }}
   OcrSolution: {{ OCRSOLUTION }}
   CrashReportingChannel: {{ CRASH_REPORTING_CHANNEL }}
-  
