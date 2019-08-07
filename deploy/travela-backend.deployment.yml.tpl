@@ -126,6 +126,11 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: OcrSolution
+            - name: CRASH_REPORTING_CHANNEL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: CrashReportingChannel
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
