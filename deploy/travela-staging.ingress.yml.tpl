@@ -33,3 +33,11 @@ spec:
         backend:
           serviceName: travela-backend
           servicePort: http
+  - host: travela-ml-staging.gq
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: travela-machine-learning
+          servicePort: http
+
