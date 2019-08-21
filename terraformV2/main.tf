@@ -32,4 +32,5 @@ module "gke" {
   db_backup_start_time = "${var.db_backup_start_time}"
   db_instance_tier     = "${var.db_instance_tier}"
   db_user              = "${var.db_user}"
+  db_password          = "${var.db_password}"
 }
