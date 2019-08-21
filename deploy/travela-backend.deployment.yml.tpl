@@ -131,6 +131,13 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: CrashReportingChannel
+          resources:
+            limits:
+              cpu: 300m
+              memory: 400Mi
+            requests:
+              cpu: 100m
+              memory: 120Mi 
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
@@ -157,6 +164,13 @@ spec:
             - name: cloudsql-instance-credentials
               mountPath: /secrets/cloudsql
               readOnly: true
+          resources:
+              limits:
+                cpu: 192m
+                memory: 225Mi
+              requests:
+                cpu: 64m
+                memory: 75Mi 
       volumes:
         - name: cloudsql-instance-credentials
           secret:

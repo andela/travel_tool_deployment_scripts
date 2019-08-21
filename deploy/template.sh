@@ -53,7 +53,8 @@ VARIABLES=(
   'CLOUDINARY_API_KEY' 'CLOUDINARY_API_SECRET' 'CLOUDINARY_ENHANCE_IMAGE'
   'CLOUDINARY_STATIC_IMAGE' 'TRAVEL_READINESS_MAIL_CYCLE'
   'SURVEY_URL' 'ANDELA_PROD_API' 'BAMBOOHR_API' 'LASTCHANGED_BAMBOO_API' 
-  'BAMBOOHRID_API' 'OCRSOLUTION' 'CRASH_REPORTING_CHANNEL'
+  'BAMBOOHRID_API' 'OCRSOLUTION' 'CRASH_REPORTING_CHANNEL' 'SECRET_KEY'
+  'DB_URL' 'APP_SETTINGS'
   )
 
 # Set default values
@@ -85,27 +86,31 @@ fi
 # base64 environment variables
 SSL_PRIVATE_KEY=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_key.key | base64 $BASE_64_ARGS)
 SSL_CERTIFICATE=$(gsutil cat gs://${SSL_BUCKET_NAME}/ssl/andela_certificate.pem | base64 $BASE_64_ARGS)
-JWT_PUBLIC_KEY=$(base64Encode $BASE_64_ARGS $JWT_PUBLIC_KEY)
-DATABASE_URL=$(base64Encode $BASE_64_ARGS $DATABASE_URL)
-DEFAULT_ADMIN=$(base64Encode $BASE_64_ARGS $DEFAULT_ADMIN)
-REDIRECT_URL=$(base64Encode $BASE_64_ARGS $REDIRECT_URL)
-BUGSNAG_API_KEY=$(base64Encode $BASE_64_ARGS $BUGSNAG_API_KEY)
-MAILGUN_API_KEY=$(base64Encode $BASE_64_ARGS $MAILGUN_API_KEY)
-MAILGUN_DOMAIN_NAME=$(base64Encode $BASE_64_ARGS $MAILGUN_DOMAIN_NAME)
-MAIL_SENDER=$(base64Encode $BASE_64_ARGS $MAIL_SENDER)
-CLOUDINARY_CLOUD_NAME=$(base64Encode $BASE_64_ARGS $CLOUDINARY_CLOUD_NAME)
-CLOUDINARY_API_KEY=$(base64Encode $BASE_64_ARGS $CLOUDINARY_API_KEY)
-CLOUDINARY_API_SECRET=$(base64Encode $BASE_64_ARGS $CLOUDINARY_API_SECRET)
-CLOUDINARY_ENHANCE_IMAGE=$(base64Encode $BASE_64_ARGS $CLOUDINARY_ENHANCE_IMAGE)
-CLOUDINARY_STATIC_IMAGE=$(base64Encode $BASE_64_ARGS $CLOUDINARY_STATIC_IMAGE)
-TRAVEL_READINESS_MAIL_CYCLE=$(base64Encode $BASE_64_ARGS "$TRAVEL_READINESS_MAIL_CYCLE")
-SURVEY_URL=$(base64Encode $BASE_64_ARGS $SURVEY_URL)
-ANDELA_PROD_API=$(base64Encode $BASE_64_ARGS "$ANDELA_PROD_API")
-BAMBOOHR_API=$(base64Encode $BASE_64_ARGS "$BAMBOOHR_API")
-LASTCHANGED_BAMBOO_API=$(base64Encode $BASE_64_ARGS "$LASTCHANGED_BAMBOO_API")
-BAMBOOHRID_API=$(base64Encode $BASE_64_ARGS "$BAMBOOHRID_API")
-OCRSOLUTION=$(base64Encode $BASE_64_ARGS "$OCRSOLUTION")
-CRASH_REPORTING_CHANNEL=$(base64Encode $BASE_64_ARGS "$CRASH_REPORTING_CHANNEL")
+JWT_PUBLIC_KEY=$(base64Encode $BASE_64_ARGS ${JWT_PUBLIC_KEY-default})
+DATABASE_URL=$(base64Encode $BASE_64_ARGS ${DATABASE_URL-default})
+DEFAULT_ADMIN=$(base64Encode $BASE_64_ARGS ${DEFAULT_ADMIN-default})
+REDIRECT_URL=$(base64Encode $BASE_64_ARGS ${REDIRECT_URL-default})
+BUGSNAG_API_KEY=$(base64Encode $BASE_64_ARGS ${BUGSNAG_API_KEY-default})
+MAILGUN_API_KEY=$(base64Encode $BASE_64_ARGS ${MAILGUN_API_KEY-default})
+MAILGUN_DOMAIN_NAME=$(base64Encode $BASE_64_ARGS ${MAILGUN_DOMAIN_NAME-default})
+MAIL_SENDER=$(base64Encode $BASE_64_ARGS ${MAIL_SENDER-default})
+CLOUDINARY_CLOUD_NAME=$(base64Encode $BASE_64_ARGS ${CLOUDINARY_CLOUD_NAME-default})
+CLOUDINARY_API_KEY=$(base64Encode $BASE_64_ARGS ${CLOUDINARY_API_KEY-default})
+CLOUDINARY_API_SECRET=$(base64Encode $BASE_64_ARGS ${CLOUDINARY_API_SECRET-default})
+CLOUDINARY_ENHANCE_IMAGE=$(base64Encode $BASE_64_ARGS ${CLOUDINARY_ENHANCE_IMAGE-default})
+CLOUDINARY_STATIC_IMAGE=$(base64Encode $BASE_64_ARGS ${CLOUDINARY_STATIC_IMAGE-default})
+TRAVEL_READINESS_MAIL_CYCLE=$(base64Encode $BASE_64_ARGS "${TRAVEL_READINESS_MAIL_CYCLE-default}")
+SURVEY_URL=$(base64Encode $BASE_64_ARGS ${SURVEY_URL-default})
+ANDELA_PROD_API=$(base64Encode $BASE_64_ARGS "${ANDELA_PROD_API-default}")
+BAMBOOHR_API=$(base64Encode $BASE_64_ARGS "${BAMBOOHR_API-default}")
+LASTCHANGED_BAMBOO_API=$(base64Encode $BASE_64_ARGS "${LASTCHANGED_BAMBOO_API-default}")
+BAMBOOHRID_API=$(base64Encode $BASE_64_ARGS "${BAMBOOHRID_API-default}")
+OCRSOLUTION=$(base64Encode $BASE_64_ARGS "${OCRSOLUTION-default}")
+CRASH_REPORTING_CHANNEL=$(base64Encode $BASE_64_ARGS "${CRASH_REPORTING_CHANNEL-default}")
+SECRET_KEY=$(base64Encode $BASE_64_ARGS "${SECRET_KEY-default}")
+DB_URL=$(base64Encode $BASE_64_ARGS "${DB_URL-default}")
+APP_SETTINGS=$(base64Encode $BASE_64_ARGS "${APP_SETTINGS-default}")
+
 
 findTempateFiles() {
   local _yamlFilesVariable=$1
@@ -135,7 +140,7 @@ findAndReplaceVariables() {
       cp $file $output
       info "Building $(basename $file) template to $(basename $output)"
       for variable in ${VARIABLES[@]}; do
-        local value=${!variable}
+        local value=${!variable-default}
         sed -i -e "s#{{ $variable }}#$value#" $output;
         sed -i -e "s#{{ $variable }}#$value#" $output;
       done
@@ -148,8 +153,6 @@ findAndReplaceVariables() {
     fi
   done
 
-  # gsutil cat gs://travela/.secrets/travela-backend/.env.${NAMESPACE} >> deploy/travela-backend.secret.yml
-
   info "Cleaning backup files after substitution"
   rm -rf deploy/*-e
 }
@@ -159,7 +162,3 @@ cleanGeneratedYamlFiles() {
   rm -rf deploy/*.yml
   rm -rf deploy/*.config
 }
-
-# findTempateFiles 'TEMPLATES'
-# findAndReplaceVariables
-# cleanGeneratedYamlFiles
