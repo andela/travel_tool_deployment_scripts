@@ -131,6 +131,13 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: CrashReportingChannel
+          resources:
+            limits:
+              cpu: 300m
+              memory: 450Mi
+            requests:
+              cpu: 100m
+              memory: 150Mi 
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
