@@ -28,3 +28,5 @@ data:
   BamboohridApi: {{ BAMBOOHRID_API }}
   OcrSolution: {{ OCRSOLUTION }}
   CrashReportingChannel: {{ CRASH_REPORTING_CHANNEL }}
+  VapidPrivateKey: {{ VAPID_PRIVATE_KEY }}
+  VapidPublicKey: {{ VAPID_PUBLIC_KEY }}
