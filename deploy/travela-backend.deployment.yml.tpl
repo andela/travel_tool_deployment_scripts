@@ -147,7 +147,7 @@ spec:
               memory: 450Mi
             requests:
               cpu: 100m
-              memory: 150Mi 
+              memory: 150Mi
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
