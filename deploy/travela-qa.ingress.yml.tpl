@@ -33,3 +33,10 @@ spec:
         backend:
           serviceName: travela-backend
           servicePort: http
+  - host: travela-ai-qa.andela.com
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: travela-machine-learning
+          servicePort: http

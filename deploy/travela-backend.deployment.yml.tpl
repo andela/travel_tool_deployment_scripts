@@ -131,13 +131,23 @@ spec:
                 secretKeyRef:
                   name: {{ PROJECT_NAME }}-secrets
                   key: CrashReportingChannel
+            - name: VAPID_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: VapidPublicKey
+            - name: VAPID_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ PROJECT_NAME }}-secrets
+                  key: VapidPrivateKey
           resources:
             limits:
               cpu: 300m
-              memory: 400Mi
+              memory: 450Mi
             requests:
               cpu: 100m
-              memory: 120Mi 
+              memory: 150Mi
           readinessProbe:
             httpGet:
               path: /api/v1/_healthz
@@ -164,13 +174,6 @@ spec:
             - name: cloudsql-instance-credentials
               mountPath: /secrets/cloudsql
               readOnly: true
-          resources:
-              limits:
-                cpu: 192m
-                memory: 225Mi
-              requests:
-                cpu: 64m
-                memory: 75Mi 
       volumes:
         - name: cloudsql-instance-credentials
           secret:
